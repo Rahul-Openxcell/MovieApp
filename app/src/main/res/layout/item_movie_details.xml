@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movieModel"
+            type="com.app.movieapp.model.MovieModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_125"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            app:cardCornerRadius="@dimen/dp_10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_movie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/movie_poster"
+                android:scaleType="centerCrop"
+                app:loadImage="@{movieModel.posterPath}"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@{movieModel.title}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView"
+            app:layout_constraintTop_toTopOf="@+id/materialCardView"
+            tools:text="Black Panther Marvel Studio" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_movie"
+            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
+            android:numStars="5"
+            android:rating="@{movieModel.getRating()}"
+            android:theme="@style/RatingBar"
+            app:layout_constraintStart_toStartOf="@+id/txt_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+        <TextView
+            android:id="@+id/txt_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:text="@{movieModel.rate}"
+            android:textColor="@color/colorYellow"
+            app:layout_constraintStart_toEndOf="@+id/rating_movie"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title"
+            tools:text="8.75" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_category"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:text="D"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_12"
+            app:cornerRadius="@dimen/dp_32"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_rate"
+            app:layout_constraintStart_toEndOf="@+id/txt_rate"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title"
+            app:strokeColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/txt_head_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/release_date"
+            app:layout_constraintStart_toStartOf="@+id/rating_movie"
+            app:layout_constraintTop_toBottomOf="@+id/rating_movie" />
+
+        <TextView
+            android:id="@+id/txt_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:text="@{movieModel.displayDate()}"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@+id/txt_head_release_date"
+            app:layout_constraintTop_toTopOf="@+id/txt_head_release_date"
+            tools:text="28 sep 2018" />
+
+        <TextView
+            android:id="@+id/txt_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_8"
+            android:text="@{movieModel.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txt_head_release_date"
+            app:layout_constraintTop_toBottomOf="@+id/txt_release_date"
+            tools:text="@tools:sample/lorem" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_buyTicket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/buy_ticket"
+            app:backgroundTint="@color/colorBlue"
+            app:cornerRadius="@dimen/dp_32"
+            app:layout_constraintEnd_toEndOf="@+id/txt_description"
+            app:layout_constraintTop_toBottomOf="@+id/txt_description" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_buyTicket" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -13,4 +13,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="RatingBar" parent="Base.Widget.AppCompat.RatingBar.Small">
+        <item name="colorControlActivated">@color/colorYellow</item>
+    </style>
+
 </resources>

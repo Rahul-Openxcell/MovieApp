@@ -41,12 +41,15 @@ abstract class BaseFragment : Fragment(), BaseFragmentImplMethod {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         try {
 
+            binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+            return binding.root
+
         } catch (e: Exception) {
             e.printStackTrace()
             Utils.showToast(requireContext(), e.localizedMessage.toString())
         }
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        return binding.root
+        return null
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
