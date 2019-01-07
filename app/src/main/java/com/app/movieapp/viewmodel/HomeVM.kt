@@ -1,8 +1,12 @@
 package com.app.movieapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import  androidx.lifecycle.MutableLiveData
 import com.app.movieapp.baseclass.BaseViewModel
 import com.app.movieapp.databinding.FragmentHomeBinding
+import com.app.movieapp.db.AppDatabase
+import com.app.movieapp.db.SearchDao
+import com.app.movieapp.db.SearchEntity
 import com.app.movieapp.model.GenreModel
 import com.app.movieapp.model.MovieModel
 import com.app.movieapp.model.ResponseData
@@ -14,6 +18,9 @@ import java.text.FieldPosition
 class HomeVM : BaseViewModel() {
 
     var movieList = MutableLiveData<ArrayList<MovieModel>>()
+    lateinit var searchList: LiveData<List<SearchEntity>>
+    var error = MutableLiveData<String>()
+
 
     fun callMovieList() {
         val call = RetrofitClient.getApiInterface().movieList()
@@ -38,4 +45,9 @@ class HomeVM : BaseViewModel() {
         }
         mBinding.txtGenre.text = genre.toString()
     }
+
+    fun getSearchList(database: AppDatabase) {
+        searchList = database.searchDao().getAll()
+    }
+
 }

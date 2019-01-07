@@ -11,6 +11,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.app.movieapp.R
 import com.app.movieapp.baseclass.BaseActivity
+import com.app.movieapp.db.AppDatabase
+import com.app.movieapp.db.SearchEntity
+import com.app.movieapp.model.ResponseData
 import com.app.movieapp.utility.Utils
 import com.app.movieapp.viewmodel.HomeVM
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,6 +24,11 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
     private val homeVM by lazy {
         getViewModel<HomeVM>() as HomeVM
     }
+
+    private val db by lazy {
+        AppDatabase.getInstance(this)
+    }
+
     private lateinit var navController: NavController
 
 
@@ -72,8 +80,10 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
     }
 
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
+    override fun onQueryTextSubmit(query: String): Boolean {
         Utils.log("query : $query")
+        db.searchDao().insert(SearchEntity(name = query))
+        Utils.log("Data" + db.searchDao().getAll().toString())
         return false
     }
 
@@ -81,4 +91,10 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
         Utils.log("newText : $newText")
         return true
     }
+
+    override fun apiError(error: String) {
+        super.apiError(error)
+        homeVM.error.value = error
+    }
+
 }

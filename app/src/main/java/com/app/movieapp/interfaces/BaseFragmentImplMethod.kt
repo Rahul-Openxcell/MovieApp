@@ -1,4 +1,4 @@
-package com.babatufani.interfaces
+package com.app.movieapp.interfaces
 
 /**
  * Created by Rahul Sadhu

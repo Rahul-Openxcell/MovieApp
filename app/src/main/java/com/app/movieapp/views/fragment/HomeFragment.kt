@@ -58,6 +58,10 @@ class HomeFragment : BaseFragment() {
             homeVM.setTitle(mBinding, 0)
 
         })
+
+        homeVM.error.observe(this, Observer {
+            mBinding.isData = true
+        })
     }
 
     fun setViewPager() {

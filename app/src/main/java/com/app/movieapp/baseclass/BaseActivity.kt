@@ -23,7 +23,7 @@ import com.app.movieapp.databinding.DialogProgressbarBinding
 import com.app.movieapp.model.ResponseData
 import com.app.movieapp.utility.FAILURE
 import com.app.movieapp.utility.Utils
-import com.babatufani.interfaces.AppCompactImplMethod
+import com.app.movieapp.interfaces.AppCompactImplMethod
 
 /**
  * Created by Rahul Sadhu.

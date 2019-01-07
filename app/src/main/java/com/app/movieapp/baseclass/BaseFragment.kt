@@ -1,7 +1,6 @@
 package com.app.movieapp.baseclass
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -21,7 +20,7 @@ import com.app.movieapp.databinding.DialogProgressbarBinding
 import com.app.movieapp.model.ResponseData
 import com.app.movieapp.utility.FAILURE
 import com.app.movieapp.utility.Utils
-import com.babatufani.interfaces.BaseFragmentImplMethod
+import com.app.movieapp.interfaces.BaseFragmentImplMethod
 
 /**
  * Created by Rahul Sadhu
