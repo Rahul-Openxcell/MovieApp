@@ -3,10 +3,10 @@ package com.app.movieapp.db
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.util.ArrayList
 
-@Entity(tableName = "search")
+@Entity(tableName = "search", indices = [Index(value = ["search_name"], unique = true)])
 data class SearchEntity(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "search_id")

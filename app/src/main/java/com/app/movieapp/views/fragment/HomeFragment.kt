@@ -23,6 +23,7 @@ class HomeFragment : BaseFragment() {
     private val handler = Handler()
     private val delay: Long = 5000 //milliseconds
     private var page = 0
+    private var isRunning = false
 
     private var runnable: Runnable = object : Runnable {
         override fun run() {
@@ -56,6 +57,7 @@ class HomeFragment : BaseFragment() {
             moviePagerAdapter = MoviePagerAdapter(childFragmentManager, it)
             viewpager_movies.adapter = moviePagerAdapter
             homeVM.setTitle(mBinding, 0)
+            startAutoSwipe()
 
         })
 
@@ -64,7 +66,7 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-    fun setViewPager() {
+    private fun setViewPager() {
         viewpager_movies.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
@@ -93,12 +95,26 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        handler.postDelayed(runnable, delay)
+        startAutoSwipe()
     }
 
     override fun onPause() {
         super.onPause()
+        removeAutoSwipe()
+
+    }
+
+    private fun startAutoSwipe() {
+        if (!isRunning) {
+            isRunning = true
+            handler.postDelayed(runnable, delay)
+        }
+    }
+
+    private fun removeAutoSwipe() {
+        isRunning = false
         handler.removeCallbacks(runnable)
     }
+
 
 }

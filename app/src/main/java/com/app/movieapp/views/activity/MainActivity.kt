@@ -2,6 +2,7 @@ package com.app.movieapp.views.activity
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,7 +14,7 @@ import com.app.movieapp.R
 import com.app.movieapp.baseclass.BaseActivity
 import com.app.movieapp.db.AppDatabase
 import com.app.movieapp.db.SearchEntity
-import com.app.movieapp.model.ResponseData
+import com.app.movieapp.utility.KEY_KEYWORD
 import com.app.movieapp.utility.Utils
 import com.app.movieapp.viewmodel.HomeVM
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,7 +29,6 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
     private val db by lazy {
         AppDatabase.getInstance(this)
     }
-
     private lateinit var navController: NavController
 
 
@@ -41,8 +41,6 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     override fun initVariable() {
         navController = findNavController(R.id.fragment)
-        /*  val appBarConfiguration = AppBarConfiguration(navController.graph)
-          toolbar.setupWithNavController(navController, appBarConfiguration)*/
     }
 
     override fun loadData() {
@@ -81,9 +79,11 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        Utils.log("query : $query")
-        db.searchDao().insert(SearchEntity(name = query))
-        Utils.log("Data" + db.searchDao().getAll().toString())
+        Utils.log("query : ${query.trim()}")
+        db.searchDao().insert(SearchEntity(name = query.trim()))
+        val intent = Intent(this, MovieActivity::class.java)
+        intent.putExtra(KEY_KEYWORD, query.trim())
+        Utils.startNewActivity(this, intent)
         return false
     }
 
@@ -95,6 +95,7 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
     override fun apiError(error: String) {
         super.apiError(error)
         homeVM.error.value = error
+
     }
 
 }

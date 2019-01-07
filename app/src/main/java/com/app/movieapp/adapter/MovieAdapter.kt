@@ -1,6 +1,5 @@
 package com.app.movieapp.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.app.movieapp.retrofit.NetworkState
 
 class MovieAdapter(private val retryCallBack: () -> Unit) : PagedListAdapter<MovieModel, MovieAdapter.HomeItemHolder>(MovieModel.movieDiffUtil) {
 
-    private lateinit var context: Context
     private var networkState: NetworkState? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemHolder {

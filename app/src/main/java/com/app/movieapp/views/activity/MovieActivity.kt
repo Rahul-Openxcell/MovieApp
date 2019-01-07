@@ -1,16 +1,18 @@
 package com.app.movieapp.views.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.app.movieapp.R
 import com.app.movieapp.adapter.TabAdapter
 import com.app.movieapp.baseclass.BaseActivity
+import com.app.movieapp.utility.KEY_KEYWORD
 import com.app.movieapp.views.fragment.ComingSoonFragment
 import com.app.movieapp.views.fragment.NowShowFragment
 import kotlinx.android.synthetic.main.activity_movie.*
 
 class MovieActivity : BaseActivity() {
+
+    private lateinit var keyWord: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,17 +30,17 @@ class MovieActivity : BaseActivity() {
     }
 
     override fun initVariable() {
-        setTabLayout()
+        keyWord = intent.getStringExtra(KEY_KEYWORD)
     }
 
     override fun loadData() {
-
+        setTabLayout()
     }
 
     private fun setTabLayout() {
         val tabAdapter = TabAdapter(supportFragmentManager)
-        tabAdapter.addFragment(NowShowFragment(), getString(R.string.now_showing))
-        tabAdapter.addFragment(ComingSoonFragment(), getString(R.string.coming_soon))
+        tabAdapter.addFragment(NowShowFragment.newInstance(keyWord), getString(R.string.now_showing))
+        tabAdapter.addFragment(ComingSoonFragment.newInstance(keyWord), getString(R.string.coming_soon))
         viewpager_tab.adapter = tabAdapter
         tab_movie.setupWithViewPager(viewpager_tab)
     }

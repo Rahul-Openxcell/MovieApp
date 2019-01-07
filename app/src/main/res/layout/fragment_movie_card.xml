@@ -36,10 +36,10 @@
                     android:layout_height="0dp"
                     android:contentDescription="@string/movie_poster"
                     android:scaleType="fitXY"
-                    app:layout_constraintBottom_toTopOf="@id/btn_buyTicket"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:loadImage="@{movieModel.posterPath}"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -70,9 +70,9 @@
                     android:textColor="@color/colorPreSale"
                     app:backgroundTint="@color/colorBlue"
                     app:cornerRadius="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="@+id/img_movie"
+                    app:layout_constraintEnd_toEndOf="@+id/img_movie"
+                    app:layout_constraintStart_toStartOf="@+id/img_movie" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

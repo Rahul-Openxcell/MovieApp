@@ -17,10 +17,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.app.movieapp.R
 import com.app.movieapp.databinding.DialogProgressbarBinding
+import com.app.movieapp.interfaces.BaseFragmentImplMethod
 import com.app.movieapp.model.ResponseData
 import com.app.movieapp.utility.FAILURE
 import com.app.movieapp.utility.Utils
-import com.app.movieapp.interfaces.BaseFragmentImplMethod
 
 /**
  * Created by Rahul Sadhu
@@ -77,13 +77,6 @@ abstract class BaseFragment : Fragment(), BaseFragmentImplMethod {
 
     protected fun getBinding(): ViewDataBinding {
         return binding
-    }
-
-    // set ViewModel when BaseViewModel use
-    inline fun <reified T : BaseViewModel> getViewModel(): BaseViewModel {
-        baseViewModel = ViewModelProviders.of(this)[T::class.java]
-        setObserve()
-        return baseViewModel as T
     }
 
     // set viewModel when BaseViewModel not use

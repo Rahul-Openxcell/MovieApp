@@ -19,7 +19,7 @@ import java.util.concurrent.Executor
 /**
  * Created by Rahul Sadhu
  */
-class MovieDataSource(private var retryExecutor: Executor, val keyWord: String, val type: String) : PageKeyedDataSource<Int, MovieModel>() {
+class MovieDataSource(private var retryExecutor: Executor, val keyWord: String, var type: String) : PageKeyedDataSource<Int, MovieModel>() {
     val networkState = MutableLiveData<NetworkState>()
 
     // keep a function reference for the retry event
@@ -36,7 +36,6 @@ class MovieDataSource(private var retryExecutor: Executor, val keyWord: String, 
     }
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, MovieModel>) {
-        Utils.log("LoadInitial ")
         networkState.postValue(NetworkState.LOADING)
         val call: Call<ResponseData<MovieListModel>> = RetrofitClient.getApiInterface().movieSearchList(keyWord, 1, type)
         call.enqueue(object : Callback<ResponseData<MovieListModel>> {
@@ -44,9 +43,9 @@ class MovieDataSource(private var retryExecutor: Executor, val keyWord: String, 
                 if (response.isSuccessful && response.code() == 200 && response.body() != null) {
                     response.body()!!.results?.let {
                         if (type == NOW_SHOWING) {
-                            callback.onResult(it.showing, null, 0)
+                            callback.onResult(it.showing, null, 1)
                         } else {
-                            callback.onResult(it.upcoming, null, 0)
+                            callback.onResult(it.upcoming, null, 1)
                         }
 
                         networkState.postValue(NetworkState.LOADED)

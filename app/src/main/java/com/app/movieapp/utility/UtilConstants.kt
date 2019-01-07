@@ -6,9 +6,9 @@ package com.app.movieapp.utility
 
 
 const val FAILURE = false
-const val SUCCESS = true
 
 const val KEY_MOVIE_MODEL = "movieModel"
+const val KEY_KEYWORD = "keyword"
 
 const val NOW_SHOWING = "nowshowing"
 const val COMING_SHOWING = "comingsoon"

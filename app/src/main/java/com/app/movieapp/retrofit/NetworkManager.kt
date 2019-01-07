@@ -70,18 +70,4 @@ class NetworkManager {
             }
         })
     }
-
-
-    fun RetryCall() {
-        if (!call.isExecuted) {
-            requestData(call, key)
-        }
-    }
-
-
-    fun cancelCall() {
-        if (!call.isCanceled) {
-            call.cancel()
-        }
-    }
 }
