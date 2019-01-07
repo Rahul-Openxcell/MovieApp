@@ -27,7 +27,7 @@ class NetworkManager {
     val gson = Gson()
 
     fun <T> requestData(call: Call<T>, key: String) {
-        this.call = call
+        this.call = call.clone()
         this.key = key
         call.enqueue(object : Callback<T> {
             override fun onResponse(call: Call<T>?, response: Response<T>?) {
@@ -69,5 +69,11 @@ class NetworkManager {
 
             }
         })
+    }
+
+    fun retryCall() {
+        if (!call.isExecuted) {
+            requestData(call, key)
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.app.movieapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.app.movieapp.baseclass.BaseViewModel
+import com.app.movieapp.baseclass.SingleLiveData
 import com.app.movieapp.databinding.FragmentHomeBinding
 import com.app.movieapp.db.AppDatabase
 import com.app.movieapp.db.SearchEntity
@@ -16,7 +17,7 @@ class HomeVM : BaseViewModel() {
 
     var movieList = MutableLiveData<ArrayList<MovieModel>>()
     lateinit var searchList: LiveData<List<SearchEntity>>
-    var error = MutableLiveData<String>()
+    var error = SingleLiveData<String>()
 
 
     fun callMovieList() {

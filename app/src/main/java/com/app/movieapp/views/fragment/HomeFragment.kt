@@ -3,6 +3,7 @@ package com.app.movieapp.views.fragment
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import com.app.movieapp.R
@@ -54,6 +55,7 @@ class HomeFragment : BaseFragment() {
     override fun loadData() {
         homeVM.movieList.observe(this, Observer {
             mBinding.isData = true
+            mBinding.layoutRetry.layoutMain.visibility = View.GONE
             moviePagerAdapter = MoviePagerAdapter(childFragmentManager, it)
             viewpager_movies.adapter = moviePagerAdapter
             homeVM.setTitle(mBinding, 0)
@@ -63,7 +65,15 @@ class HomeFragment : BaseFragment() {
 
         homeVM.error.observe(this, Observer {
             mBinding.isData = true
+            mBinding.layoutRetry.layoutMain.visibility = View.VISIBLE
+            mBinding.layoutRetry.txtError.text = it.toString()
         })
+
+        mBinding.layoutRetry.btnRetry.setOnClickListener {
+            mBinding.isData = false
+            mBinding.layoutRetry.layoutMain.visibility = View.GONE
+            homeVM.getNetworkManager().retryCall()
+        }
     }
 
     private fun setViewPager() {

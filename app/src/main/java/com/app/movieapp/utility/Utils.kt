@@ -2,6 +2,7 @@ package com.app.movieapp.utility
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.widget.Toast
 import com.app.movieapp.BuildConfig
 import com.app.movieapp.baseclass.BaseActivity
@@ -29,6 +30,12 @@ object Utils {
         } catch (e: ClassCastException) {
             e.printStackTrace()
         }
+    }
+
+    fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 }
 
