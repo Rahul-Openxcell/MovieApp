@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.app.movieapp.model.ResponseData
 import com.app.movieapp.utility.NETWORK_ERROR
 import com.app.movieapp.utility.SERVER_ERROR
-import com.app.movieapp.utility.SESSION_EXPIRE_MSG
 import com.app.movieapp.utility.Utils
 import com.google.gson.Gson
 import retrofit2.Call
@@ -36,17 +35,8 @@ class NetworkManager {
                     data.body()?.key = key
                     apiResponse.postValue(data.body())
                 } else {
-                    val errorData = gson.fromJson(response.errorBody()?.charStream(), ResponseData::class.java)
-                    if (errorData != null) {
-                        if (data.code() == 401) {
-                            apiError.postValue(SESSION_EXPIRE_MSG)
-                        } else {
-                            call?.let { apiError.postValue(errorData.message) }
-                        }
-
-                    } else {
                         apiError.postValue(SERVER_ERROR)
-                    }
+
                 }
 
             }

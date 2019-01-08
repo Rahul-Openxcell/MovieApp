@@ -8,12 +8,17 @@ import com.app.movieapp.model.ResponseData
 import com.app.movieapp.retrofit.NetworkState
 import com.app.movieapp.retrofit.RetrofitClient
 import com.app.movieapp.retrofit.Status
+import com.app.movieapp.utility.NETWORK_ERROR
 import com.app.movieapp.utility.NOW_SHOWING
+import com.app.movieapp.utility.SERVER_ERROR
 import com.app.movieapp.utility.Utils
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import java.util.concurrent.Executor
 
 /**
@@ -57,7 +62,13 @@ class MovieDataSource(private var retryExecutor: Executor, val keyWord: String, 
             }
 
             override fun onFailure(call: Call<ResponseData<MovieListModel>>, t: Throwable) {
-                networkState.postValue(NetworkState(Status.FAILED, t.localizedMessage))
+                val message: String = when (t) {
+                    is ConnectException -> NETWORK_ERROR
+                    is UnknownHostException -> NETWORK_ERROR
+                    is SocketTimeoutException -> "Please try again later…"
+                    else -> SERVER_ERROR
+                }
+                networkState.postValue(NetworkState(Status.FAILED, message))
             }
 
         })
@@ -87,7 +98,13 @@ class MovieDataSource(private var retryExecutor: Executor, val keyWord: String, 
             }
 
             override fun onFailure(call: Call<ResponseData<MovieListModel>>, t: Throwable) {
-                networkState.postValue(NetworkState(Status.FAILED, t.localizedMessage))
+                val message: String = when (t) {
+                    is ConnectException -> NETWORK_ERROR
+                    is UnknownHostException -> NETWORK_ERROR
+                    is SocketTimeoutException -> "Please try again later…"
+                    else -> SERVER_ERROR
+                }
+                networkState.postValue(NetworkState(Status.FAILED, message))
                 retry = {
                     loadAfter(params, callback)
                 }
